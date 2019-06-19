@@ -1,21 +1,52 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+buildscript {
+    repositories {
+        jcenter()
+    }
 }
 
-group 'learnjavaqa'
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.31'
+}
+
+group 'learnqajava'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
+    mavenLocal()
 }
 
+def junitVersion = '5.5.0-M1'
+
 dependencies {
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    compile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+
+    // JUnit5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testCompile('org.assertj:assertj-core:3.11.1')
+    testCompile("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
+    }
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
+    dependsOn 'cleanTest'
 }
 
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
