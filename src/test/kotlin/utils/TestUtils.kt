@@ -19,7 +19,8 @@ class TestUtils {
         val firefoxOptions = FirefoxOptions()
         val profile = FirefoxProfile()
 
-        driverPath = driverPath.resolve("src/test/resources/libs/geckodriver")
+        //TODO Определение ОС
+        driverPath = driverPath.resolve("src/test/resources/libs/geckodriver.exe")
         System.setProperty("webdriver.gecko.driver", driverPath.toAbsolutePath().toString())
         firefoxOptions.binary = firefoxBinary
         profile.setPreference("browser.download.folderList", 2)

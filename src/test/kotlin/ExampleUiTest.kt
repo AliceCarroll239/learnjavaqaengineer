@@ -14,7 +14,14 @@ class ExampleUiTest {
 
     @Test
     fun checkDriver() {
-        driver.get("https://playground.learnqa.ru/puzzle/triangle/")
+        //Костыль
+        //JavaScript error: https://playground.learnqa.ru/js/puzzle/jquery-3.2.1.min.js, line 5: TypeError: document.querySelector(...) is null
+        driver.manage().window().maximize()
+        for (i in 1..2) {
+            driver.get("https://playground.learnqa.ru/puzzle/triangle/")
+            Thread.sleep(2000)
+        }
+
         val minimizeButton = driver.findElement(By.cssSelector("[onclick]"))
         minimizeButton.click()
 
@@ -70,7 +77,7 @@ class ExampleUiTest {
 
         Numbers().fillForm(inputA, "2162176271261628172", inputB, "21", inputC, "21", submit)
         result = driver.findElement(By.cssSelector(".error")).text
-        assertThat(result, `is`("Числа слишком большие.\nВы ввели:\nA: 2162176271261628172; B: 21'; C: 21"))
+        assertThat(result, `is`("Числа слишком большие.\nВы ввели:\nA: 2162176271261628172; B: 21; C: 21"))
 
         Numbers().fillForm(inputA, "0", inputB, "0", inputC, "0", submit)
         result = driver.findElement(By.cssSelector(".info")).text
@@ -83,10 +90,10 @@ class ExampleUiTest {
         Numbers().fillForm(inputA, "323", inputB, "122", inputC, "", submit)
         result = driver.findElement(By.cssSelector(".error")).text
         assertThat(result, `is`("Это НЕ треугольник.\nВы ввели:\nA: 323; B: 122; C: "))
+    }
 
 //    @AfterAll
 //    fun driverClose() {
 //        driver.close()
-//
-    }
+//    }
 }

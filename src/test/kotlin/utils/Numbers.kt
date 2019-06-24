@@ -18,8 +18,4 @@ class Numbers {
         Thread.sleep(2000)
         submit.click()
     }
-
-    fun compare(){
-
-    }
 }
