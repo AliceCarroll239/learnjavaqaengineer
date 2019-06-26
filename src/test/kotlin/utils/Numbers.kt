@@ -9,6 +9,7 @@ class Numbers {
         inputC: WebElement, sendC: String,
         submit: WebElement
     ) {
+        //TODO добавить нормальное ожидание элементов
         inputA.clear()
         inputB.clear()
         inputC.clear()

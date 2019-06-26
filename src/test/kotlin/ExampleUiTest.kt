@@ -32,6 +32,8 @@ class ExampleUiTest {
     fun openPage() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
         driver.manage().window().maximize()
+        //Костыль, js ошибкана странице
+        //TODO вынести в page factory
         for (i in 1..2) {
             driver.get("https://playground.learnqa.ru/puzzle/triangle/")
             Thread.sleep(2000)
@@ -43,6 +45,7 @@ class ExampleUiTest {
     @ParameterizedTest
     @MethodSource("utils.Provider#getCases")
     fun checkCases(testCase: Case) {
+        //TODO вынести в page factory
         val inputA = driver.findElement(By.cssSelector(".js_a"))!!
         val inputB = driver.findElement(By.cssSelector(".js_b"))!!
         val inputC = driver.findElement(By.cssSelector(".js_c"))!!
@@ -57,6 +60,7 @@ class ExampleUiTest {
     @ParameterizedTest
     @MethodSource("utils.Provider#getBugs")
     fun checkBugs(testCase: Bug) {
+        //TODO вынести в page factory
         val inputA = driver.findElement(By.cssSelector(".js_a"))!!
         val inputB = driver.findElement(By.cssSelector(".js_b"))!!
         val inputC = driver.findElement(By.cssSelector(".js_c"))!!
