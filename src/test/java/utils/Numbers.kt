@@ -1,8 +1,11 @@
 package utils
 
+import io.qameta.allure.Step
 import org.openqa.selenium.WebElement
 
+
 class Numbers {
+    @Step("Заполнение полей")
     fun fillForm(
         inputA: WebElement, sendA: String,
         inputB: WebElement, sendB: String,

@@ -2,10 +2,14 @@ buildscript {
     repositories {
         jcenter()
     }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.7.0"
+    }
 }
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.31'
+    id 'io.qameta.allure' version '2.6.0'
 }
 
 group 'learnqajava'
@@ -17,6 +21,7 @@ repositories {
     mavenLocal()
 }
 
+def allureVersion = '2.9.0'
 def junitVersion = '5.5.0-M1'
 
 dependencies {
@@ -30,16 +35,35 @@ dependencies {
     testCompile('org.assertj:assertj-core:3.11.1')
     testCompile("org.junit.jupiter:junit-jupiter-params:$junitVersion")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // Allure
+    testRuntimeOnly("io.qameta.allure:allure-junit5:$allureVersion")
+    testCompile("io.qameta.allure:allure-java-commons:$allureVersion")
+    testCompile("io.qameta.allure:allure-attachments:$allureVersion")
+    testCompile("io.qameta.allure:allure-generator:$allureVersion")
+    testCompile("io.qameta.allure:allure-httpclient:$allureVersion")
 }
 
 test {
     useJUnitPlatform()
+    systemProperty 'allure.results.directory', "$projectDir/build/allure-results"
     testLogging {
         events "PASSED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
     }
     scanForTestClasses = false
     testLogging.showStandardStreams = true
     dependsOn 'cleanTest'
+}
+
+apply plugin: 'io.qameta.allure'
+
+allure {
+    autoconfigure = true
+    version = '2.9.0'
+    clean = true
+    reportDir = file("$projectDir/build/allure-report")
+    resultsDir = file("$projectDir/build/allure-results")
+    downloadLinkFormat = 'https://dl.bintray.com/qameta/maven/io/qameta/allure/allure-commandline/%s/allure-commandline-%<s.zip'
 }
 
 compileKotlin {

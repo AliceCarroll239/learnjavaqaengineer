@@ -18,10 +18,10 @@ public class Provider {
 
         @JvmStatic
         fun getBugs(): List<Bug> {
-            val paramsFile = DataProvider().loadFileAsString(
-                DataProvider().getCurrentWorkingDirectory()
-                    .resolve("src/test/resources/params.json"))
-            val testSettings = Gson().fromJson(paramsFile, TriangleDataClass::class.java)
+            val pathToFile = DataProvider().getCurrentWorkingDirectory()
+                .resolve("src/test/resources/params.json")
+            val paramsAsString = DataProvider().loadFileAsString(pathToFile)
+            val testSettings = Gson().fromJson(paramsAsString, TriangleDataClass::class.java)
             return testSettings.data.bugs
         }
     }
