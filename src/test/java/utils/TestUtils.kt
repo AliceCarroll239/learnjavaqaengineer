@@ -16,7 +16,7 @@ class TestUtils {
 
     fun configureFirefoxWebDriver(driversFolder: Path): FirefoxDriver {
         val pathToBinary = File("/usr/bin/firefox")
-        val firefoxBinary = FirefoxBinary(pathToBinary)
+        val firefoxBinary = FirefoxBinary()
         var driverPath = driversFolder
         val firefoxOptions = FirefoxOptions()
         val profile = FirefoxProfile()
