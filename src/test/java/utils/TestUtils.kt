@@ -22,7 +22,7 @@ class TestUtils {
         val OS = System.getProperty("os.name").toLowerCase()
         if (OS.indexOf("win") >= 0) {
             driverPath = driverPath.resolve("src/test/resources/libs/geckodriver.exe")
-        } else driverPath = driverPath.resolve("src/test/resources/libs/geckodriver")
+        } else driverPath = driverPath.resolve("src/test/resources/libs/geckodriverLin")
 
         System.setProperty("webdriver.gecko.driver", driverPath.toAbsolutePath().toString())
         firefoxOptions.binary = firefoxBinary
