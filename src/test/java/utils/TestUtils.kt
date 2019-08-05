@@ -4,6 +4,7 @@ import org.openqa.selenium.firefox.FirefoxBinary
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
+import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -14,7 +15,8 @@ class TestUtils {
     }
 
     fun configureFirefoxWebDriver(driversFolder: Path): FirefoxDriver {
-        val firefoxBinary = FirefoxBinary()
+        val pathToBinary = File("/usr/bin/firefox")
+        val firefoxBinary = FirefoxBinary(pathToBinary)
         var driverPath = driversFolder
         val firefoxOptions = FirefoxOptions()
         val profile = FirefoxProfile()
