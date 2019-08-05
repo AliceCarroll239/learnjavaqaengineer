@@ -1,9 +1,12 @@
 package utils
 
+import org.openqa.selenium.Capabilities
+import org.openqa.selenium.Platform
 import org.openqa.selenium.firefox.FirefoxBinary
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
+import org.openqa.selenium.remote.DesiredCapabilities
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -18,7 +21,6 @@ class TestUtils {
         val pathToBinary = File("/usr/bin/firefox")
         val firefoxBinary = FirefoxBinary(pathToBinary)
         var driverPath = driversFolder
-        val firefoxOptions = FirefoxOptions()
         val profile = FirefoxProfile()
 
         val OS = System.getProperty("os.name").toLowerCase()
@@ -27,8 +29,10 @@ class TestUtils {
         } else driverPath = driverPath.resolve("src/test/resources/libs/geckodriverLin")
 
         System.setProperty("webdriver.gecko.driver", driverPath.toAbsolutePath().toString())
+        val cap = DesiredCapabilities()
+        cap.setCapability("marionette", true)
+        val firefoxOptions = FirefoxOptions(cap)
         firefoxOptions.binary = firefoxBinary
-        firefoxOptions.setCapability("marionette", true)
 
         //------- Пока не надо ---------//
 //        profile.setPreference("browser.download.folderList", 2)
@@ -44,7 +48,6 @@ class TestUtils {
 //        profile.setPreference("browser.download.manager.showAlertOnComplete", false)
 //        profile.setPreference("browser.download.manager.useWindow", false)
 //        profile.setPreference("services.sync.prefs.sync.browser.download.manager.showWhenStarting", false)
-        firefoxOptions.profile = profile
 
         return FirefoxDriver(firefoxOptions)
     }
