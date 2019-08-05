@@ -26,6 +26,7 @@ class TestUtils {
 
         System.setProperty("webdriver.gecko.driver", driverPath.toAbsolutePath().toString())
         firefoxOptions.binary = firefoxBinary
+        firefoxOptions.setCapability("marionette", false)
 
         //------- Пока не надо ---------//
 //        profile.setPreference("browser.download.folderList", 2)
