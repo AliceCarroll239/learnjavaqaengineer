@@ -16,7 +16,7 @@ class TestUtils {
 
     fun configureFirefoxWebDriver(driversFolder: Path): FirefoxDriver {
         val pathToBinary = File("/usr/bin/firefox")
-        val firefoxBinary = FirefoxBinary()
+        val firefoxBinary = FirefoxBinary(pathToBinary)
         var driverPath = driversFolder
         val firefoxOptions = FirefoxOptions()
         val profile = FirefoxProfile()
@@ -28,7 +28,7 @@ class TestUtils {
 
         System.setProperty("webdriver.gecko.driver", driverPath.toAbsolutePath().toString())
         firefoxOptions.binary = firefoxBinary
-        firefoxOptions.setCapability("marionette", false)
+        //firefoxOptions.setCapability("marionette", false)
 
         //------- Пока не надо ---------//
 //        profile.setPreference("browser.download.folderList", 2)
